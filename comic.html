@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comics - thethongngu</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>thethongngu</h1>
+    <p class="tagline">building stupid things on the internet</p>
+    <nav class="main-nav">
+      <a href="index.html">home</a>
+      <a href="comic.html" class="active">comics</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="comics">
+      <h2>Comics</h2>
+      <div class="comic-carousel">
+        <div class="comic-container">
+          <div class="comic-slide active">
+            <img src="comics/comic1.jpg" alt="Comic Page 1" class="comic-image">
+            <p class="comic-title">Comic #1</p>
+          </div>
+          <div class="comic-slide">
+            <img src="comics/comic2.jpg" alt="Comic Page 2" class="comic-image">
+            <p class="comic-title">Comic #2</p>
+          </div>
+          <!-- Add more comic slides here -->
+        </div>
+        <div class="comic-nav">
+          <button class="nav-btn prev-btn" onclick="changeComic(-1)">‹</button>
+          <span class="comic-counter">1 / 2</span>
+          <button class="nav-btn next-btn" onclick="changeComic(1)">›</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>📮 hi at mydomain</p>
+    <p class="quote">"make it soft, make it slow, make it yours."</p>
+  </footer>
+
+  <script>
+    let currentComic = 0;
+    const comicSlides = document.querySelectorAll('.comic-slide');
+    const totalComics = comicSlides.length;
+
+    function showComic(index) {
+      comicSlides.forEach(slide => slide.classList.remove('active'));
+      if (comicSlides[index]) {
+        comicSlides[index].classList.add('active');
+      }
+      updateCounter();
+    }
+
+    function changeComic(direction) {
+      currentComic += direction;
+      
+      if (currentComic >= totalComics) {
+        currentComic = 0;
+      } else if (currentComic < 0) {
+        currentComic = totalComics - 1;
+      }
+      
+      showComic(currentComic);
+    }
+
+    function updateCounter() {
+      const counter = document.querySelector('.comic-counter');
+      if (counter) {
+        counter.textContent = `${currentComic + 1} / ${totalComics}`;
+      }
+    }
+
+    // Initialize
+    updateCounter();
+  </script>
+</body>
+</html> 
