@@ -20,9 +20,9 @@ header {
 }
 
 .header-icon {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 0.5rem;
+  height: 1em;
+  width: auto;
+  border-radius: 0.3rem;
 }
 
 h1 {
