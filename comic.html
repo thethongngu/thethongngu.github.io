@@ -26,20 +26,25 @@
     <section id="comics">
       <div class="comic-carousel">
         <div class="comic-container">
-            <div class="comic-slide active">
-              <img src="assets/comics/comic-01.jpeg" alt="Comic Page 1" class="comic-image">
-              <p class="comic-title">Dev Keyboard Evolution</p>
-            </div>
-            <div class="comic-slide">
-              <img src="assets/comics/comic-02.jpeg" alt="Comic Page 1" class="comic-image">
-              <p class="comic-title">Active Record</p>
-            </div>
+          <div class="comic-slide active">
+            <img src="assets/comics/comic-01.jpeg" alt="Comic Page 1" class="comic-image">
+            <p class="comic-title">Dev Keyboard Evolution</p>
+          </div>
+          <div class="comic-slide">
+            <img src="assets/comics/comic-02.jpeg" alt="Comic Page 2" class="comic-image">
+            <p class="comic-title">Active Record</p>
+          </div>
           <!-- Add more comic slides here -->
         </div>
         <div class="comic-nav">
-          <button class="nav-btn prev-btn" onclick="changeComic(-1)">‹</button>
-          <span class="comic-counter">1 / 1</span>
-          <button class="nav-btn next-btn" onclick="changeComic(1)">›</button>
+          <button class="nav-btn first-btn" onclick="goToPage(0)" title="First page">«</button>
+          <button class="nav-btn prev-btn" onclick="goToPage(currentComic - 1)" title="Previous page">‹</button>
+          <div class="pagination">
+            <input type="number" class="page-input" min="1" onchange="goToPageFromInput(this.value)">
+            <span class="page-total">/ 1</span>
+          </div>
+          <button class="nav-btn next-btn" onclick="goToPage(currentComic + 1)" title="Next page">›</button>
+          <button class="nav-btn last-btn" onclick="goToPage(totalComics - 1)" title="Last page">»</button>
         </div>
       </div>
     </section>
@@ -53,36 +58,56 @@
     let currentComic = 0;
     const comicSlides = document.querySelectorAll('.comic-slide');
     const totalComics = comicSlides.length;
+    const pageInput = document.querySelector('.page-input');
+    const pageTotal = document.querySelector('.page-total');
 
     function showComic(index) {
+      // Remove active class from all slides
       comicSlides.forEach(slide => slide.classList.remove('active'));
+      
+      // Add active class to current slide
       if (comicSlides[index]) {
         comicSlides[index].classList.add('active');
-      }
-      updateCounter();
-    }
-
-    function changeComic(direction) {
-      currentComic += direction;
-      
-      if (currentComic >= totalComics) {
-        currentComic = 0;
-      } else if (currentComic < 0) {
-        currentComic = totalComics - 1;
+        currentComic = index;
       }
       
-      showComic(currentComic);
+      updatePagination();
     }
 
-    function updateCounter() {
-      const counter = document.querySelector('.comic-counter');
-      if (counter) {
-        counter.textContent = `${currentComic + 1} / ${totalComics}`;
+    function goToPage(page) {
+      // Ensure page is within bounds
+      if (page >= totalComics) {
+        page = totalComics - 1;
+      } else if (page < 0) {
+        page = 0;
       }
+      
+      showComic(page);
     }
 
-    // Initialize
-    updateCounter();
+    function goToPageFromInput(value) {
+      // Convert input value to zero-based index
+      const page = parseInt(value) - 1;
+      goToPage(page);
+    }
+
+    function updatePagination() {
+      // Update input field and total pages
+      pageInput.value = currentComic + 1;
+      pageTotal.textContent = `/ ${totalComics}`;
+
+      // Update button states
+      document.querySelector('.first-btn').disabled = currentComic === 0;
+      document.querySelector('.prev-btn').disabled = currentComic === 0;
+      document.querySelector('.next-btn').disabled = currentComic === totalComics - 1;
+      document.querySelector('.last-btn').disabled = currentComic === totalComics - 1;
+    }
+
+    // Initialize pagination
+    pageInput.value = 1;
+    pageTotal.textContent = `/ ${totalComics}`;
+    pageInput.max = totalComics;
+    updatePagination();
   </script>
 </body>
 </html> 
