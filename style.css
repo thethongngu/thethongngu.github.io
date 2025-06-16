@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Fira+Code:wght@300;400;500&display=swap');
 
 :root {
-  --bg-color: #0d1117;
-  --text-color: #e6edf3;
-  --accent-color: #58a6ff;
-  --secondary-color: #30363d;
-  --hover-color: #1f6feb;
-  --code-bg: #161b22;
+  --bg-color: #ffffff;
+  --text-color: #24292f;
+  --accent-color: #0969da;
+  --secondary-color: #d0d7de;
+  --hover-color: #0969da;
+  --code-bg: #f6f8fa;
+  --muted-text: #57606a;
 }
 
 body {
@@ -17,13 +18,12 @@ body {
   padding: 0;
   line-height: 1.6;
   min-height: 100vh;
-  transition: all 0.3s ease;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 header {
   text-align: center;
-  padding: 4rem 1rem 2rem;
+  padding: 2rem 1rem;
   background: var(--code-bg);
   position: relative;
   border-bottom: 1px solid var(--secondary-color);
@@ -33,42 +33,35 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.8rem;
   position: relative;
-  z-index: 1;
-  animation: glitch 1s ease-out;
 }
 
 .header-icon {
   height: 1.2em;
   width: auto;
   border-radius: 4px;
-  transition: transform 0.3s ease;
-  border: 1px solid var(--accent-color);
+  transition: transform 0.2s ease;
+  border: 1px solid var(--secondary-color);
 }
 
 .header-icon:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 15px var(--accent-color);
 }
 
 h1 {
-  font-size: 2.8rem;
+  font-size: 2rem;
   margin: 0;
   font-weight: 600;
-  color: var(--accent-color);
-  text-shadow: 2px 2px 4px rgba(88, 166, 255, 0.2);
+  color: var(--text-color);
 }
 
 .tagline {
   font-family: 'Fira Code', monospace;
-  font-size: 1.1rem;
-  color: #8b949e;
-  margin-top: 0.8rem;
+  font-size: 0.9rem;
+  color: var(--muted-text);
+  margin-top: 0.5rem;
   font-weight: 300;
-  position: relative;
-  z-index: 1;
-  animation: typewriter 2s steps(40) 1s both;
 }
 
 .tagline::before {
@@ -77,51 +70,46 @@ h1 {
 }
 
 main {
-  max-width: 900px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2rem 1rem;
 }
 
 section {
   margin-top: 2rem;
   background: var(--code-bg);
-  border-radius: 8px;
-  padding: 2rem;
+  border-radius: 6px;
+  padding: 1.5rem;
   border: 1px solid var(--secondary-color);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-section:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 20px rgba(88, 166, 255, 0.1);
 }
 
 .main-nav {
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
-  margin-top: 2rem;
+  gap: 1rem;
+  margin-top: 1.5rem;
   flex-wrap: wrap;
 }
 
 .main-nav a {
   color: var(--text-color);
   text-decoration: none;
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.8rem;
   border-radius: 4px;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   border: 1px solid var(--secondary-color);
-  background: var(--code-bg);
-  font-size: 0.9rem;
+  background: var(--bg-color);
+  font-size: 0.85rem;
 }
 
 .main-nav a:hover {
-  background: var(--hover-color);
   border-color: var(--accent-color);
+  color: var(--accent-color);
 }
 
 .main-nav a.active {
   background: var(--accent-color);
+  color: white;
   border-color: var(--accent-color);
 }
 
@@ -132,75 +120,92 @@ section:hover {
 }
 
 .notes-list li {
-  padding: 1.5rem;
+  padding: 1.2rem;
   margin-bottom: 1rem;
   border: 1px solid var(--secondary-color);
   border-radius: 6px;
-  background: rgba(88, 166, 255, 0.05);
-  transition: all 0.3s ease;
+  background: var(--bg-color);
+  transition: border-color 0.2s ease;
 }
 
 .notes-list li:hover {
   border-color: var(--accent-color);
-  transform: translateX(5px);
 }
 
 .notes-list h3 {
-  margin: 0 0 1rem 0;
-  color: var(--accent-color);
-  font-size: 1.2rem;
+  margin: 0 0 0.8rem 0;
+  color: var(--text-color);
+  font-size: 1rem;
 }
 
 .notes-list h3::before {
   content: '# ';
-  color: #8b949e;
+  color: var(--accent-color);
 }
 
 .notes-list p {
   margin: 0;
-  color: #8b949e;
-  font-size: 0.95rem;
+  color: var(--muted-text);
+  font-size: 0.9rem;
 }
 
-@keyframes glitch {
-  0% {
-    transform: translate(0);
-  }
-  20% {
-    transform: translate(-2px, 2px);
-  }
-  40% {
-    transform: translate(-2px, -2px);
-  }
-  60% {
-    transform: translate(2px, 2px);
-  }
-  80% {
-    transform: translate(2px, -2px);
-  }
-  100% {
-    transform: translate(0);
-  }
+/* Comic styles */
+.comic-container {
+  margin: 2rem 0;
 }
 
-@keyframes typewriter {
-  from {
-    width: 0;
-    border-right: 2px solid var(--accent-color);
-  }
-  to {
-    width: 100%;
-    border-right: 2px solid transparent;
-  }
+.comic-image {
+  max-width: 600px;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 4px;
+  border: 1px solid var(--secondary-color);
+}
+
+.comic-title {
+  text-align: center;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  color: var(--muted-text);
+}
+
+.comic-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.nav-btn {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--secondary-color);
+  background: var(--bg-color);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-btn:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.comic-counter {
+  font-size: 0.85rem;
+  color: var(--muted-text);
 }
 
 footer {
   text-align: center;
-  padding: 2rem;
-  color: #8b949e;
-  font-size: 0.9rem;
+  padding: 2rem 1rem;
+  color: var(--muted-text);
+  font-size: 0.85rem;
   border-top: 1px solid var(--secondary-color);
-  margin-top: 4rem;
+  margin-top: 3rem;
 }
 
 footer p::before {
@@ -210,7 +215,7 @@ footer p::before {
 
 @media (max-width: 768px) {
   h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
   
   main {
@@ -218,15 +223,19 @@ footer p::before {
   }
   
   section {
-    padding: 1.5rem;
+    padding: 1.2rem;
   }
   
   .main-nav {
-    gap: 0.8rem;
+    gap: 0.6rem;
   }
   
   .main-nav a {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.85rem;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+  }
+  
+  .comic-image {
+    max-width: 100%;
   }
 }
