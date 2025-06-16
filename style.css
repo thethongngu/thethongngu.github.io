@@ -150,6 +150,14 @@ section {
 }
 
 /* Comic styles */
+.comic-slide {
+  display: none;
+}
+
+.comic-slide.active {
+  display: block;
+}
+
 .comic-container {
   margin: 2rem 0;
 }
