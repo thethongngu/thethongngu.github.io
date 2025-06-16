@@ -301,3 +301,20 @@ footer p::before {
     font-size: 0.8rem;
   }
 }
+
+.comic-loading,
+.comic-error {
+  text-align: center;
+  padding: 2rem;
+  color: var(--muted-text);
+  font-size: 0.9rem;
+  background: var(--code-bg);
+  border-radius: 4px;
+  border: 1px solid var(--secondary-color);
+}
+
+.comic-error {
+  color: #cf222e;
+  background: #ffebe9;
+  border-color: #cf222e;
+}

@@ -25,16 +25,8 @@
   <main>
     <section id="comics">
       <div class="comic-carousel">
-        <div class="comic-container">
-          <div class="comic-slide active">
-            <img src="assets/comics/comic-01.jpeg" alt="Comic Page 1" class="comic-image">
-            <p class="comic-title">Dev Keyboard Evolution</p>
-          </div>
-          <div class="comic-slide">
-            <img src="assets/comics/comic-02.jpeg" alt="Comic Page 2" class="comic-image">
-            <p class="comic-title">Active Record</p>
-          </div>
-          <!-- Add more comic slides here -->
+        <div id="comic-container" class="comic-container">
+          <!-- Comic will be loaded here dynamically -->
         </div>
         <div class="comic-nav">
           <button class="nav-btn first-btn" onclick="goToPage(0)" title="First page">«</button>
@@ -55,23 +47,67 @@
   </footer>
 
   <script>
+    // Comic metadata
+    const comics = [
+      { id: 1, title: "Dev Keyboard Evolution" },
+      { id: 2, title: "Active Record" }
+      // New comics will be automatically detected based on file naming
+    ];
+
     let currentComic = 0;
-    const comicSlides = document.querySelectorAll('.comic-slide');
-    const totalComics = comicSlides.length;
+    const totalComics = comics.length;
     const pageInput = document.querySelector('.page-input');
     const pageTotal = document.querySelector('.page-total');
+    const comicContainer = document.getElementById('comic-container');
 
-    function showComic(index) {
-      // Remove active class from all slides
-      comicSlides.forEach(slide => slide.classList.remove('active'));
-      
-      // Add active class to current slide
-      if (comicSlides[index]) {
-        comicSlides[index].classList.add('active');
+    async function loadComic(index) {
+      try {
+        const comic = comics[index];
+        if (!comic) return;
+
+        // Clear current comic
+        comicContainer.innerHTML = '';
+
+        // Create new comic elements
+        const comicSlide = document.createElement('div');
+        comicSlide.className = 'comic-slide active';
+
+        const img = document.createElement('img');
+        img.className = 'comic-image';
+        img.alt = `Comic Page ${comic.id}`;
+        
+        // Show loading state
+        const loadingText = document.createElement('p');
+        loadingText.textContent = 'Loading...';
+        loadingText.className = 'comic-loading';
+        comicSlide.appendChild(loadingText);
+        comicContainer.appendChild(comicSlide);
+
+        // Load the image
+        const paddedId = comic.id.toString().padStart(2, '0');
+        img.src = `assets/comics/comic-${paddedId}.jpeg`;
+        
+        // Wait for image to load
+        await new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = reject;
+        });
+
+        // Remove loading text and show image
+        comicSlide.removeChild(loadingText);
+        comicSlide.appendChild(img);
+
+        const title = document.createElement('p');
+        title.className = 'comic-title';
+        title.textContent = comic.title;
+        comicSlide.appendChild(title);
+
         currentComic = index;
+        updatePagination();
+      } catch (error) {
+        console.error('Error loading comic:', error);
+        comicContainer.innerHTML = '<p class="comic-error">Failed to load comic</p>';
       }
-      
-      updatePagination();
     }
 
     function goToPage(page) {
@@ -82,7 +118,7 @@
         page = 0;
       }
       
-      showComic(page);
+      loadComic(page);
     }
 
     function goToPageFromInput(value) {
@@ -107,7 +143,7 @@
     pageInput.value = 1;
     pageTotal.textContent = `/ ${totalComics}`;
     pageInput.max = totalComics;
-    updatePagination();
+    loadComic(0); // Load first comic
   </script>
 </body>
 </html> 
