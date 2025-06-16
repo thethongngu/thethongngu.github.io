@@ -85,7 +85,7 @@
 
         // Load the image
         const paddedId = comic.id.toString().padStart(2, '0');
-        img.src = `assets/comics/comic-${paddedId}.jpeg`;
+        img.src = `assets/comics/comic${paddedId}.jpg`;
         
         // Wait for image to load
         await new Promise((resolve, reject) => {
