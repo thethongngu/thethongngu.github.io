@@ -62,6 +62,8 @@ h1 {
   color: var(--muted-text);
   margin-top: 0.5rem;
   font-weight: 300;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
 }
 
 .tagline::before {

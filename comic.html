@@ -6,6 +6,7 @@
   <title>Comics - thethongngu</title>
   <link rel="icon" type="image/jpeg" href="assets/icon.jpeg" />
   <link rel="stylesheet" href="style.css" />
+  <script src="assets/shared.js"></script>
 </head>
 <body>
   <header>
@@ -13,7 +14,7 @@
       <img src="assets/icon.jpeg" alt="thethongngu icon" class="header-icon" />
       <h1>thethongngu</h1>
     </div>
-    <p class="tagline">building stupid things on the internet</p>
+    <p class="tagline" id="tagline">life is about maximizing (long-term) good experience</p>
     <nav class="main-nav">
       <a href="about.html">about</a>
       <a href="projects.html">projects</a>
@@ -25,9 +26,6 @@
   <main>
     <section id="comics">
       <div class="comic-carousel">
-        <div id="comic-container" class="comic-container">
-          <!-- Comic will be loaded here dynamically -->
-        </div>
         <div class="comic-nav">
           <button class="nav-btn first-btn" onclick="goToPage(0)" title="First page">«</button>
           <button class="nav-btn prev-btn" onclick="goToPage(currentComic - 1)" title="Previous page">‹</button>
@@ -37,6 +35,9 @@
           </div>
           <button class="nav-btn next-btn" onclick="goToPage(currentComic + 1)" title="Next page">›</button>
           <button class="nav-btn last-btn" onclick="goToPage(totalComics - 1)" title="Last page">»</button>
+        </div>
+        <div id="comic-container" class="comic-container">
+          <!-- Comic will be loaded here dynamically -->
         </div>
       </div>
     </section>
@@ -50,7 +51,8 @@
     // Comic metadata
     const comics = [
       { id: 1, title: "Dev Keyboard Evolution" },
-      { id: 2, title: "Active Record" }
+      { id: 2, title: "Active Record" },
+      { id: 3, title: "Unlimited Plan" }
       // New comics will be automatically detected based on file naming
     ];
 
