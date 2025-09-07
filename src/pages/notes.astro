@@ -1,0 +1,23 @@
+---
+import "../styles/global.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Notes - thethongngu" activeNav="notes">
+  <section
+    class="mt-8 bg-github-code-bg rounded-md p-6 border border-github-secondary"
+  >
+    <ul class="list-none p-0 m-0">
+      <li
+        class="p-5 mb-4 border border-github-secondary rounded-md bg-github-bg transition-colors hover:border-github-accent"
+      >
+        <h3
+          class="m-0 mb-3 text-github-text text-base before:content-['#_'] before:text-github-accent before:mr-1"
+        >
+          The meta thought
+        </h3>
+        <p class="m-0 text-github-muted text-sm">will be updated shortly...</p>
+      </li>
+    </ul>
+  </section>
+</BaseLayout>

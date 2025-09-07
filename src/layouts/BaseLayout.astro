@@ -1,0 +1,97 @@
+---
+import "../styles/global.css";
+import Tagline from "../components/Tagline.astro";
+export interface Props {
+  title: string;
+  activeNav?: string;
+}
+
+const { title, activeNav } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link rel="icon" type="image/jpeg" href="/assets/icon.jpeg" />
+  </head>
+  <body
+    class="font-mono bg-github-bg text-github-text min-h-screen text-sm leading-relaxed"
+  >
+    <header
+      class="text-center px-4 py-8 bg-github-code-bg border-b border-github-secondary"
+    >
+      <div
+        class="flex items-center justify-center gap-3 cursor-pointer hover-title"
+        id="header-title"
+      >
+        <img
+          src="/assets/icon.jpeg"
+          alt="thethongngu icon"
+          class="h-5 w-auto rounded border border-github-secondary transition-transform duration-200 hover:scale-105"
+        />
+        <h1 class="text-2xl md:text-3xl font-semibold text-github-text m-0">
+          thethongngu
+        </h1>
+      </div>
+      <Tagline />
+      <nav class="flex justify-center gap-4 mt-6 flex-wrap">
+        <a
+          href="/about"
+          class={`text-github-text no-underline px-3 py-2 rounded border border-github-secondary bg-github-bg text-sm transition-all duration-200 hover:!border-github-accent hover:!text-github-accent ${activeNav === "about" ? "!bg-github-accent !text-white !border-github-accent" : ""}`}
+        >
+          about
+        </a>
+        <a
+          href="/projects"
+          class={`text-github-text no-underline px-3 py-2 rounded border border-github-secondary bg-github-bg text-sm transition-all duration-200 hover:!border-github-accent hover:!text-github-accent ${activeNav === "projects" ? "!bg-github-accent !text-white !border-github-accent" : ""}`}
+        >
+          projects
+        </a>
+        <a
+          href="/notes"
+          class={`text-github-text no-underline px-3 py-2 rounded border border-github-secondary bg-github-bg text-sm transition-all duration-200 hover:!border-github-accent hover:!text-github-accent ${activeNav === "notes" ? "!bg-github-accent !text-white !border-github-accent" : ""}`}
+        >
+          notes
+        </a>
+        <a
+          href="/comic"
+          class={`text-github-text no-underline px-3 py-2 rounded border border-github-secondary bg-github-bg text-sm transition-all duration-200 hover:!border-github-accent hover:!text-github-accent ${activeNav === "comic" ? "!bg-github-accent !text-white !border-github-accent" : ""}`}
+        >
+          comics
+        </a>
+      </nav>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-8">
+      <slot />
+    </main>
+
+    <footer
+      class="text-center px-4 py-8 text-github-muted text-sm border-t border-github-secondary mt-12"
+    >
+      <p class="before:content-['$_'] before:text-github-accent before:mr-1">
+        📮 hi at mydomain
+      </p>
+    </footer>
+
+    <script>
+      // Homepage navigation functionality
+      function initHomepageNavigation() {
+        const headerTitle = document.getElementById("header-title");
+        if (!headerTitle) return;
+
+        headerTitle.addEventListener("click", () => {
+          window.location.href = "/";
+        });
+      }
+
+      // Initialize all functionality when DOM is loaded
+      document.addEventListener("DOMContentLoaded", () => {
+        initHomepageNavigation();
+      });
+    </script>
+  </body>
+</html>

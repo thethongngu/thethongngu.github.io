@@ -1,1 +1,17 @@
+# Astro
+dist/
+.astro/
+
+# Node modules
+node_modules/
+
+# System files
 .DS_Store
+
+# Editor
+.vscode/
+.idea/
+
+# Logs
+*.log
+logs/
