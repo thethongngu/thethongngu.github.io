@@ -11,14 +11,14 @@ const comics = [
 <div class="comic-carousel">
   <div class="flex justify-center items-center gap-2 mb-4">
     <button
-      class="px-3 py-2 border border-github-secondary bg-github-bg rounded text-sm cursor-pointer min-w-10 flex items-center justify-center transition-all duration-200 hover:!border-github-accent hover:!text-github-accent disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:!border-github-secondary disabled:hover:!text-github-text"
+      class="px-3 py-2 border border-gray-300 bg-white rounded text-sm cursor-pointer min-w-10 flex items-center justify-center transition-all duration-200 hover:!border-blue-600 hover:!text-blue-600 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:!border-gray-300 disabled:hover:!text-gray-800"
       id="first-btn"
       title="First page"
     >
       «
     </button>
     <button
-      class="px-3 py-2 border border-github-secondary bg-github-bg rounded text-sm cursor-pointer min-w-10 flex items-center justify-center transition-all duration-200 hover:!border-github-accent hover:!text-github-accent disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:!border-github-secondary disabled:hover:!text-github-text"
+      class="px-3 py-2 border border-gray-300 bg-white rounded text-sm cursor-pointer min-w-10 flex items-center justify-center transition-all duration-200 hover:!border-blue-600 hover:!text-blue-600 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:!border-gray-300 disabled:hover:!text-gray-800"
       id="prev-btn"
       title="Previous page"
     >
@@ -27,21 +27,21 @@ const comics = [
     <div class="flex items-center gap-1 mx-2">
       <input
         type="number"
-        class="w-12 p-1 border border-github-secondary rounded font-mono text-sm text-center focus:outline-none focus:border-github-accent"
+        class="w-12 p-1 border border-gray-300 rounded font-mono text-sm text-center focus:outline-none focus:border-blue-600"
         id="page-input"
         min="1"
       />
-      <span class="text-github-muted text-sm" id="page-total">/ 1</span>
+      <span class="text-gray-600 text-sm" id="page-total">/ 1</span>
     </div>
     <button
-      class="px-3 py-2 border border-github-secondary bg-github-bg rounded text-sm cursor-pointer min-w-10 flex items-center justify-center transition-all duration-200 hover:!border-github-accent hover:!text-github-accent disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:!border-github-secondary disabled:hover:!text-github-text"
+      class="px-3 py-2 border border-gray-300 bg-white rounded text-sm cursor-pointer min-w-10 flex items-center justify-center transition-all duration-200 hover:!border-blue-600 hover:!text-blue-600 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:!border-gray-300 disabled:hover:!text-gray-800"
       id="next-btn"
       title="Next page"
     >
       ›
     </button>
     <button
-      class="px-3 py-2 border border-github-secondary bg-github-bg rounded text-sm cursor-pointer min-w-10 flex items-center justify-center transition-all duration-200 hover:!border-github-accent hover:!text-github-accent disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:!border-github-secondary disabled:hover:!text-github-text"
+      class="px-3 py-2 border border-gray-300 bg-white rounded text-sm cursor-pointer min-w-10 flex items-center justify-center transition-all duration-200 hover:!border-blue-600 hover:!text-blue-600 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:!border-gray-300 disabled:hover:!text-gray-800"
       id="last-btn"
       title="Last page"
     >
@@ -74,14 +74,14 @@ const comics = [
 
       const img = document.createElement("img");
       img.className =
-        "max-w-full md:max-w-2xl w-full h-auto block mx-auto rounded border border-github-secondary";
+        "max-w-full md:max-w-2xl w-full h-auto block mx-auto rounded border border-gray-300";
       img.alt = `Comic Page ${comic.id}`;
 
       // Show loading state
       const loadingText = document.createElement("p");
       loadingText.textContent = "Loading...";
       loadingText.className =
-        "text-center p-8 text-github-muted text-sm bg-github-code-bg rounded border border-github-secondary";
+        "text-center p-8 text-gray-600 text-sm bg-gray-50 rounded border border-gray-300";
       comicSlide.appendChild(loadingText);
       comicContainer.appendChild(comicSlide);
 
@@ -100,7 +100,7 @@ const comics = [
       comicSlide.appendChild(img);
 
       const title = document.createElement("p");
-      title.className = "text-center my-4 text-sm text-github-muted";
+      title.className = "text-center my-4 text-sm text-gray-600";
       title.textContent = comic.title;
       comicSlide.appendChild(title);
 
@@ -109,7 +109,7 @@ const comics = [
     } catch (error) {
       console.error("Error loading comic:", error);
       comicContainer.innerHTML =
-        '<p class="text-center p-8 text-github-error bg-github-error-bg rounded border border-github-error">Failed to load comic</p>';
+        '<p class="text-center p-8 text-red-600 bg-red-50 rounded border border-red-300">Failed to load comic</p>';
     }
   }
 

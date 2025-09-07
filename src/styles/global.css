@@ -23,26 +23,3 @@ body {
   min-height: 100vh;
   font-size: 14px;
 }
-
-/* Custom pseudo-element styles that can't be done with Tailwind utilities */
-.tagline::before {
-  content: '> ';
-  color: var(--accent-color);
-}
-
-footer p::before {
-  content: '$ ';
-  color: var(--accent-color);
-}
-
-.notes-list h3::before {
-  content: '# ';
-  color: var(--accent-color);
-}
-
-/* Input number field styling - browser-specific styles that can't be done with Tailwind */
-.page-input::-webkit-outer-spin-button,
-.page-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}

@@ -8,7 +8,7 @@ const Tagline = () => {
 
   return (
     <p
-      className="font-code text-sm text-github-muted mt-2 font-light transition-opacity duration-300 cursor-pointer before:content-['>_'] before:text-github-accent before:mr-1"
+      className="font-code text-sm text-gray-600 mt-2 font-light transition-opacity duration-300 cursor-pointer before:content-['>_'] before:text-blue-600 before:mr-1"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
