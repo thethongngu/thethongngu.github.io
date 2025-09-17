@@ -4,15 +4,32 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="Projects - thethongngu" activeNav="projects">
-  <section class="mt-8">
-    <div class="projects-grid">
+  <section class="mt-8 px-4 max-w-6xl mx-auto">
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+    >
       <a
         href="/projects/bitflags"
-        class="project-item block mb-6 p-4 bg-white rounded-lg border border-gray-200 hover:border-blue-300 transition-colors no-underline"
+        class="group project-card aspect-square bg-white rounded-2xl border border-gray-200 hover:border-blue-400 hover:shadow-lg transition-all duration-300 no-underline overflow-hidden transform hover:-translate-y-1"
       >
-        <div class="flex items-center gap-3">
-          <div class="text-2xl">🔍</div>
-          <h3 class="text-lg font-semibold text-gray-800">Bitflag Inspector</h3>
+        <div
+          class="h-full flex flex-col items-center justify-center p-6 text-center"
+        >
+          <div
+            class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300"
+          >
+            🔍
+          </div>
+          <h3
+            class="text-lg font-semibold text-gray-800 group-hover:text-blue-600 transition-colors mb-2"
+          >
+            Bitflag Inspector
+          </h3>
+          <p
+            class="text-sm text-gray-500 group-hover:text-gray-700 transition-colors"
+          >
+            Interactive tool for analyzing bitflags
+          </p>
         </div>
       </a>
     </div>
