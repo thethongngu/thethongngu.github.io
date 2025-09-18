@@ -1,0 +1,22 @@
+{
+  "shops": [
+    {
+      "id": 1,
+      "name": "Tiger Sugar",
+      "category": "milktea",
+      "address": "No. 15, Zhongshan N Rd, Zhongshan District, Taipei City",
+      "lat": 25.0527,
+      "lng": 121.5202,
+      "description": "Famous for brown sugar boba milk tea"
+    },
+    {
+      "id": 2,
+      "name": "Gong Cha",
+      "category": "milktea",
+      "address": "No. 28, Section 4, Zhongxiao E Rd, Da'an District, Taipei City",
+      "lat": 25.0418,
+      "lng": 121.5440,
+      "description": "Popular bubble tea chain with various toppings"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+---
+import "../../styles/global.css";
+import Header from "../../components/Header";
+import MilkteaMap from "../../components/MilkteaMap";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Milk Tea Map - thethongngu</title>
+    <link rel="icon" type="image/jpeg" href="/assets/icon.jpeg" />
+  </head>
+  <body
+    class="font-mono bg-white text-gray-800 text-sm leading-relaxed overflow-hidden h-screen"
+  >
+    <div class="h-full flex flex-col">
+      <Header activeNav="projects" client:load />
+      <div class="flex-1 w-full">
+        <MilkteaMap client:only="react" />
+      </div>
+    </div>
+  </body>
+</html>
