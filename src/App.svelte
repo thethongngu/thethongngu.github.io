@@ -56,23 +56,11 @@
 
 <style>
   header {
-    margin-bottom: 3rem;
     padding-bottom: 2rem;
-    border-bottom: 1px solid var(--color-border);
   }
 
   h1 {
     margin-bottom: 0.25rem;
-  }
-
-  h1 a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .tagline {
-    color: var(--color-text-muted);
-    margin-bottom: 1rem;
   }
 
   nav {
@@ -112,7 +100,6 @@
   footer {
     margin-top: 2rem;
     padding-top: 2rem;
-    border-top: 1px solid var(--color-border);
     color: var(--color-text-muted);
     font-size: 0.875rem;
   }
