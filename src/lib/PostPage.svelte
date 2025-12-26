@@ -9,10 +9,7 @@
 
 <article class="post-page">
   <header>
-    <div class="title-row">
-      <a href="/#/" class="back">&larr;</a>
-      <h1>{post.title}</h1>
-    </div>
+    <h1>{post.title}</h1>
     <time>{post.date}</time>
   </header>
   <div class="content">
@@ -24,19 +21,6 @@
   .post-page {
     max-width: 100%;
     position: relative;
-  }
-
-  .title-row {
-    position: relative;
-  }
-
-  .back {
-    position: absolute;
-    right: 100%;
-    top: 0.65rem;
-    margin-right: 1rem;
-    font-size: 1.25rem;
-    line-height: 1;
   }
 
   h1 {
