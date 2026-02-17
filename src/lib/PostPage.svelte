@@ -44,8 +44,6 @@
   }
 
   .content :global(pre) {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
     padding: 1rem;
     border-radius: 4px;
     overflow-x: auto;

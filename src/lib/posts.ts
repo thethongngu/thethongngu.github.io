@@ -1,4 +1,18 @@
-import { marked } from 'marked';
+import { Marked } from 'marked';
+import { markedHighlight } from 'marked-highlight';
+import hljs from 'highlight.js';
+
+const marked = new Marked(
+  markedHighlight({
+    langPrefix: 'hljs language-',
+    highlight(code, lang) {
+      if (lang && hljs.getLanguage(lang)) {
+        return hljs.highlight(code, { language: lang }).value;
+      }
+      return hljs.highlightAuto(code).value;
+    }
+  })
+);
 
 export interface Post {
   title: string;
@@ -54,7 +68,7 @@ export async function loadPosts(): Promise<Post[]> {
       title: meta.title || slug,
       date: formatDate(meta.date || ''),
       slug,
-      content: await marked(body)
+      content: await marked.parse(body)
     });
   }
 

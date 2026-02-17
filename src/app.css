@@ -74,8 +74,6 @@ code {
 pre {
   font-family: var(--font-mono);
   font-size: 0.875rem;
-  background-color: var(--color-text);
-  color: var(--color-bg);
   padding: 1rem;
   border-radius: 8px;
   overflow-x: auto;
