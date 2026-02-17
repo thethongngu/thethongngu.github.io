@@ -1,6 +1,6 @@
 ---
 title: Hello, world!
-date: 2024-12-20
+date: 2025-06-06
 ---
 
 Hello, world!
