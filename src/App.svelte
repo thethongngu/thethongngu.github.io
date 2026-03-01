@@ -1,13 +1,15 @@
 <script lang="ts">
     import PostPage from "./lib/PostPage.svelte";
-    import { loadPosts, type Post } from "./lib/posts";
+    import { loadPosts, loadNotes, type Post } from "./lib/posts";
     import { apps, iconUrl } from "./lib/apps";
 
     let posts = $state<Post[]>([]);
+    let notes = $state<Post[]>([]);
     let currentPath = $state(window.location.hash || "#/");
 
     $effect(() => {
         loadPosts().then((p) => (posts = p));
+        loadNotes().then((n) => (notes = n));
     });
 
     $effect(() => {
@@ -18,11 +20,18 @@
         return () => window.removeEventListener("hashchange", handleHashChange);
     });
 
+    const isNotesPage = $derived(currentPath === "#/notes");
+
     const currentPost = $derived(
         currentPath.startsWith("#/posts/")
             ? posts.find((p) => p.slug === currentPath.replace("#/posts/", ""))
-            : null,
+            : currentPath.startsWith("#/notes/")
+              ? notes.find((p) => p.slug === currentPath.replace("#/notes/", ""))
+              : null,
     );
+
+    const displayPosts = $derived(isNotesPage ? notes : posts);
+    const postLinkPrefix = $derived(isNotesPage ? "notes" : "posts");
 </script>
 
 {#if currentPost}
@@ -34,6 +43,7 @@
         <h1>thethongngu</h1>
         <nav>
             <a href="/#/">Home</a>
+            <a href="/#/notes">Notes</a>
             <a href="https://github.com/thethongngu">GitHub</a>
         </nav>
     </header>
@@ -58,11 +68,11 @@
 
     <main>
         <section class="posts">
-            {#each posts as post}
+            {#each displayPosts as post}
                 <article class="post">
                     <time>{post.date}</time>
                     <span class="separator">—</span>
-                    <a href="/#/posts/{post.slug}" class="post-title"
+                    <a href="/#/{postLinkPrefix}/{post.slug}" class="post-title"
                         >{post.title}</a
                     >
                 </article>

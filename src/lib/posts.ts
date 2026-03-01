@@ -51,18 +51,13 @@ function formatDate(dateStr: string): string {
   });
 }
 
-export async function loadPosts(): Promise<Post[]> {
-  const modules = import.meta.glob<PostModule>('../posts/*.md', {
-    query: '?raw',
-    import: 'default'
-  });
-
+async function loadFromGlob(modules: Record<string, () => Promise<unknown>>, prefix: string): Promise<Post[]> {
   const posts: Post[] = [];
 
   for (const path in modules) {
     const raw = await modules[path]() as unknown as string;
     const { meta, body } = parseFrontmatter(raw);
-    const slug = path.replace('../posts/', '').replace('.md', '');
+    const slug = path.replace(prefix, '').replace('.md', '');
 
     posts.push({
       title: meta.title || slug,
@@ -73,4 +68,20 @@ export async function loadPosts(): Promise<Post[]> {
   }
 
   return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+export async function loadPosts(): Promise<Post[]> {
+  const modules = import.meta.glob<PostModule>('../posts/*.md', {
+    query: '?raw',
+    import: 'default'
+  });
+  return loadFromGlob(modules as Record<string, () => Promise<unknown>>, '../posts/');
+}
+
+export async function loadNotes(): Promise<Post[]> {
+  const modules = import.meta.glob<PostModule>('../notes/*.md', {
+    query: '?raw',
+    import: 'default'
+  });
+  return loadFromGlob(modules as Record<string, () => Promise<unknown>>, '../notes/');
 }
