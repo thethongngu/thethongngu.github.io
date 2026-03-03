@@ -51,6 +51,31 @@ function formatDate(dateStr: string): string {
   });
 }
 
+function processFootnotes(body: string): string {
+  const defRegex = /^\[\^(\w+)\]:\s+(.+)$/gm;
+  const refs: { id: string; text: string }[] = [];
+  let match;
+  while ((match = defRegex.exec(body)) !== null) {
+    refs.push({ id: match[1], text: match[2] });
+  }
+  if (refs.length === 0) return body;
+
+  let result = body.replace(defRegex, '').trimEnd();
+
+  for (const ref of refs) {
+    const inlineRegex = new RegExp(`\\[\\^${ref.id}\\]`, 'g');
+    result = result.replace(inlineRegex, `<sup><a onclick="document.getElementById('fn-${ref.id}').scrollIntoView({behavior:'smooth'})" id="fnref-${ref.id}">[${ref.id}]</a></sup>`);
+  }
+
+  result += '\n\n---\n\n<section class="footnotes">\n\n#### References\n\n<ol>\n';
+  for (const ref of refs) {
+    result += `<li id="fn-${ref.id}">${ref.text} <a onclick="document.getElementById('fnref-${ref.id}').scrollIntoView({behavior:'smooth'})">↩</a></li>\n`;
+  }
+  result += '</ol>\n</section>\n';
+
+  return result;
+}
+
 async function loadFromGlob(modules: Record<string, () => Promise<unknown>>, prefix: string): Promise<Post[]> {
   const posts: Post[] = [];
 
@@ -63,7 +88,7 @@ async function loadFromGlob(modules: Record<string, () => Promise<unknown>>, pre
       title: meta.title || slug,
       date: formatDate(meta.date || ''),
       slug,
-      content: await marked.parse(body)
+      content: await marked.parse(processFootnotes(body))
     });
   }
 

@@ -77,4 +77,34 @@
     background-color: var(--color-primary);
     color: white;
   }
+
+  .content :global(.footnotes) {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin-top: 2rem;
+  }
+
+  .content :global(.footnotes h4) {
+    margin-bottom: 0.75rem;
+    color: var(--color-text);
+  }
+
+  .content :global(.footnotes ol) {
+    padding-left: 1.25rem;
+  }
+
+  .content :global(.footnotes li) {
+    margin-bottom: 0.4rem;
+  }
+
+  .content :global(sup a) {
+    font-size: 0.75rem;
+    text-decoration: none;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .content :global(.footnotes a) {
+    cursor: pointer;
+  }
 </style>

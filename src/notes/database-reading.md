@@ -21,4 +21,17 @@ OS Physical Frame
 
 Page cache
 
-- dynamically sized region of physical RAM maintained by the OS kernel.
+- dynamically sized region of physical RAM maintained by the OS kernel
+
+Journal
+
+- Standard computing terminology refers to ledger of operations or states
+
+Concurrency control
+
+- The core underlying reason for all concurrency issues is the non-deterministic interleaving of operations on the shared mutable state
+- [^1] states that there are 2 main categories in non-deadlock concurrency issues:
+  - Atomicity Violation: The desired serializability among multiple memory accesses is violated. This occurs when a code region is intended to be atomic, but that atomicity is not enforced during execution
+  - Order Violation: The desired order between two memory accesses, or groups of memory accesses, is flipped. This occurs when operation A should always be executed before operation B, but the system fails to enforce this order during execution
+
+[^1]: Learning from mistakes: a comprehensive study on real world concurrency bug characteristics
