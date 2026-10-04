@@ -1,21 +1,30 @@
 <script lang="ts">
-  export let post: {
-    title: string;
-    date: string;
-    slug: string;
-    content: string;
-  };
+  import type { Post } from "#lib/post.ts";
+
+  let { post }: { post: Post } = $props();
 </script>
 
-<article class="post-page">
-  <header>
-    <h1>{post.title}</h1>
-    <time>{post.date}</time>
-  </header>
-  <div class="content">
-    {@html post.content}
-  </div>
-</article>
+<svelte:head>
+  <title>{post.title} · thethongngu</title>
+  <meta property="og:title" content={post.title} />
+  <meta property="og:type" content="article" />
+  {#if post.description}
+    <meta name="description" content={post.description} />
+    <meta property="og:description" content={post.description} />
+  {/if}
+</svelte:head>
+
+<main>
+  <article class="post-page">
+    <header>
+      <h1>{post.title}</h1>
+      <time datetime={post.isoDate}>{post.date}</time>
+    </header>
+    <div class="content">
+      {@html post.content}
+    </div>
+  </article>
+</main>
 
 <style>
   .post-page {
@@ -101,10 +110,5 @@
     font-size: 0.75rem;
     text-decoration: none;
     padding: 0;
-    cursor: pointer;
-  }
-
-  .content :global(.footnotes a) {
-    cursor: pointer;
   }
 </style>

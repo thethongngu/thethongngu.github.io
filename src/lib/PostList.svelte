@@ -1,87 +1,52 @@
 <script lang="ts">
-    import PostPage from "./lib/PostPage.svelte";
-    import { loadPosts, loadNotes, type Post } from "./lib/posts";
-    import { apps, iconUrl } from "./lib/apps";
+    import { apps, iconUrl } from "#lib/apps.ts";
+    import type { Collection, PostSummary } from "#lib/post.ts";
 
-    let posts = $state<Post[]>([]);
-    let notes = $state<Post[]>([]);
-    let currentPath = $state(window.location.hash || "#/");
-
-    $effect(() => {
-        loadPosts().then((p) => (posts = p));
-        loadNotes().then((n) => (notes = n));
-    });
-
-    $effect(() => {
-        const handleHashChange = () => {
-            currentPath = window.location.hash || "#/";
-        };
-        window.addEventListener("hashchange", handleHashChange);
-        return () => window.removeEventListener("hashchange", handleHashChange);
-    });
-
-    const isNotesPage = $derived(currentPath === "#/notes");
-
-    const currentPost = $derived(
-        currentPath.startsWith("#/posts/")
-            ? posts.find((p) => p.slug === currentPath.replace("#/posts/", ""))
-            : currentPath.startsWith("#/notes/")
-              ? notes.find((p) => p.slug === currentPath.replace("#/notes/", ""))
-              : null,
-    );
-
-    const displayPosts = $derived(isNotesPage ? notes : posts);
-    const postLinkPrefix = $derived(isNotesPage ? "notes" : "posts");
+    let { posts, collection }: { posts: PostSummary[]; collection: Collection } = $props();
 </script>
 
-{#if currentPost}
-    <main>
-        <PostPage post={currentPost} />
-    </main>
-{:else}
-    <header>
-        <h1>thethongngu</h1>
-        <nav>
-            <a href="/#/">Home</a>
-            <a href="/#/notes">Notes</a>
-            <a href="https://github.com/thethongngu">GitHub</a>
-        </nav>
-    </header>
+<header>
+    <h1>thethongngu</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/notes/">Notes</a>
+        <a href="https://github.com/thethongngu">GitHub</a>
+    </nav>
+</header>
 
-    {#if apps.length > 0}
-        <div class="apps-mobile">
-            <h2>My artifacts</h2>
-            <span class="apps-mobile-sep">:</span>
-            {#each apps as app}
-                <a
-                    href={app.url}
-                    class="app-card"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title={app.name}
-                >
-                    <img class="app-icon" src={iconUrl(app)} alt={app.name} />
-                </a>
-            {/each}
-        </div>
-    {/if}
-
-    <main>
-        <section class="posts">
-            {#each displayPosts as post}
-                <article class="post">
-                    <time>{post.date}</time>
-                    <span class="separator">—</span>
-                    <a href="/#/{postLinkPrefix}/{post.slug}" class="post-title"
-                        >{post.title}</a
-                    >
-                </article>
-            {/each}
-        </section>
-    </main>
+{#if apps.length > 0}
+    <div class="apps-mobile">
+        <h2>My artifacts</h2>
+        <span class="apps-mobile-sep">:</span>
+        {#each apps as app}
+            <a
+                href={app.url}
+                class="app-card"
+                target="_blank"
+                rel="noopener noreferrer"
+                title={app.name}
+            >
+                <img class="app-icon" src={iconUrl(app)} alt={app.name} />
+            </a>
+        {/each}
+    </div>
 {/if}
 
-{#if !currentPost && apps.length > 0}
+<main>
+    <section class="posts">
+        {#each posts as post}
+            <article class="post">
+                <time datetime={post.isoDate}>{post.date}</time>
+                <span class="separator">—</span>
+                <a href="/{collection}/{post.slug}/" class="post-title"
+                    >{post.title}</a
+                >
+            </article>
+        {/each}
+    </section>
+</main>
+
+{#if apps.length > 0}
     <aside class="apps">
         <h2>My artifacts</h2>
         {#each apps as app}
@@ -98,10 +63,6 @@
         {/each}
     </aside>
 {/if}
-
-<footer>
-    <p>&copy; 2024 thethongngu</p>
-</footer>
 
 <style>
     header {
@@ -198,17 +159,6 @@
         text-align: center;
         font-weight: 500;
         line-height: 1.2;
-    }
-
-    footer {
-        margin-top: 2rem;
-        padding-top: 2rem;
-        color: var(--color-text-muted);
-        font-size: 0.875rem;
-    }
-
-    footer p {
-        margin: 0;
     }
 
     .apps-mobile {
