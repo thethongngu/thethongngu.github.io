@@ -6,6 +6,7 @@
 
 <header>
     <a href="/" class="site-title">thethongngu</a>
+    <p class="tagline">prompting by day, prompting more by night</p>
 </header>
 
 {@render children()}
@@ -13,7 +14,6 @@
 <style>
     header {
         margin-bottom: 3rem;
-        font-family: var(--font-ui);
     }
 
     .site-title {
@@ -24,5 +24,11 @@
 
     .site-title:hover {
         color: var(--color-accent);
+    }
+
+    .tagline {
+        margin: 0.15rem 0 0;
+        font-size: 0.8rem;
+        color: var(--color-text-muted);
     }
 </style>

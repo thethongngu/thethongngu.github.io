@@ -16,7 +16,6 @@
 
 <style>
     h2 {
-        font-family: var(--font-ui);
         font-size: 0.75rem;
         font-weight: 600;
         text-transform: uppercase;
@@ -42,7 +41,6 @@
     }
 
     time {
-        font-family: var(--font-ui);
         font-size: 0.8rem;
         font-variant-numeric: tabular-nums;
         color: var(--color-text-muted);

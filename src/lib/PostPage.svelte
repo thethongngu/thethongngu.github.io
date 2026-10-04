@@ -37,7 +37,6 @@
 
   time {
     display: block;
-    font-family: var(--font-ui);
     font-size: 0.8rem;
     color: var(--color-text-muted);
   }
