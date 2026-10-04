@@ -1,25 +1,34 @@
 <script lang="ts">
     import "#lib/app.css";
-    import "highlight.js/styles/atom-one-dark.css";
 
     let { children } = $props();
 </script>
 
+<header>
+    <a href="/" class="site-title">thethongngu</a>
+    <p class="tagline">prompting by day, prompting more by night</p>
+</header>
+
 {@render children()}
 
-<footer>
-    <p>&copy; 2024 thethongngu</p>
-</footer>
-
 <style>
-    footer {
-        margin-top: 2rem;
-        padding-top: 2rem;
-        color: var(--color-text-muted);
-        font-size: 0.875rem;
+    header {
+        margin-bottom: 3rem;
     }
 
-    footer p {
-        margin: 0;
+    .site-title {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--color-text);
+    }
+
+    .site-title:hover {
+        color: var(--color-accent);
+    }
+
+    .tagline {
+        margin: 0.15rem 0 0;
+        font-size: 0.8rem;
+        color: var(--color-text-muted);
     }
 </style>
