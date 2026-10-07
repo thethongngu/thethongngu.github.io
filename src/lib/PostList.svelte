@@ -5,7 +5,7 @@
 </script>
 
 <section>
-    <h2>{title}</h2>
+    <h2 class="section-label">{title}</h2>
     {#each posts as post}
         <article class="post">
             <time datetime={post.isoDate}>{post.date}</time>
@@ -16,11 +16,6 @@
 
 <style>
     h2 {
-        font-size: 0.75rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.06em;
-        color: var(--color-text-muted);
         margin-bottom: 0.75rem;
     }
 
