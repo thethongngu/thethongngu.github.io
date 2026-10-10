@@ -20,7 +20,9 @@
     --font-mono:
         ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono",
         monospace;
-    --content-width: 1000px;
+    --text-width: 36rem;
+    --wide-width: 1000px;
+    --page-width: var(--text-width);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -40,11 +42,27 @@
     box-sizing: border-box;
 }
 
+html {
+    font-size: 112.5%;
+}
+
+@media (max-width: 37.5em) {
+    html {
+        font-size: 106.25%;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
 body {
     margin: 0;
     font-family: var(--font-sans);
-    font-size: 17px;
-    line-height: 1.6;
+    font-size: 1rem;
+    line-height: 1.65;
     color: var(--color-text);
     background-color: var(--color-bg);
     -webkit-font-smoothing: antialiased;
@@ -53,9 +71,16 @@ body {
 }
 
 #app {
-    max-width: var(--content-width);
-    margin: 0 auto;
-    padding: 3rem 1.25rem 5rem;
+    padding: 2rem 1.25rem 5rem;
+}
+
+#app:has(main.wide) {
+    --page-width: var(--wide-width);
+}
+
+main {
+    max-width: var(--page-width);
+    margin-inline: auto;
 }
 
 ::selection {

@@ -4,8 +4,6 @@ date: 2026-10-09
 ---
 
 ## Debugging steps
-- Turned on “Reduce transparency”.
-    - WindowServer CPU stayed high, so transparency was not the main cause.
 - Quit all apps, including menu bar apps.
     - WindowServer CPU stayed near 36%, so the cause was not only an open app.
 - Measured WindowServer CPU in Terminal instead of Activity Monitor.

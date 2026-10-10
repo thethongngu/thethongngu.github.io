@@ -1,52 +1,53 @@
 <script lang="ts">
-    import type { Collection, PostSummary } from "#lib/post.ts";
+    import type { PostSummary } from "#lib/post.ts";
 
-    let { title, posts, collection }: { title: string; posts: PostSummary[]; collection: Collection } = $props();
+    let { posts }: { posts: PostSummary[] } = $props();
 </script>
 
-<section>
-    <h2 class="section-label">{title}</h2>
+<ol>
     {#each posts as post}
-        <article class="post">
-            <time datetime={post.isoDate}>{post.date}</time>
-            <a href="/{collection}/{post.slug}/" class="post-title">{post.title}</a>
-        </article>
+        <li>
+            <a href="/posts/{post.slug}/">{post.title}</a>
+            <time datetime={post.date}>{post.date}</time>
+        </li>
     {/each}
-</section>
+</ol>
 
 <style>
-    h2 {
-        margin-bottom: 0.75rem;
+    ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
     }
 
-    .post {
-        display: grid;
-        grid-template-columns: 7.5rem 1fr;
+    li {
+        display: flex;
+        justify-content: space-between;
         align-items: baseline;
-        gap: 1rem;
-        padding: 0.4rem 0;
+        gap: 1.5rem;
+        padding: 0.45rem 0;
     }
 
-    .post-title {
+    a {
         color: var(--color-text);
     }
 
-    .post-title:hover {
+    a:hover {
         color: var(--color-accent);
     }
 
     time {
-        font-size: 0.8rem;
+        font-size: 0.85rem;
         font-variant-numeric: tabular-nums;
         color: var(--color-text-muted);
         white-space: nowrap;
     }
 
-    @media (max-width: 480px) {
-        .post {
-            grid-template-columns: 1fr;
+    @media (max-width: 37.5em) {
+        li {
+            flex-direction: column;
             gap: 0;
-            padding: 0.5rem 0;
+            padding: 0.6rem 0;
         }
     }
 </style>

@@ -41,7 +41,7 @@
     <meta property="og:description" content={DESCRIPTION} />
 </svelte:head>
 
-<main>
+<main class="wide">
     <header>
         <h1>Your own inflation rate</h1>
         <p class="lead">{DESCRIPTION}</p>

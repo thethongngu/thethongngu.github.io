@@ -2,7 +2,7 @@ import { error } from '@sveltejs/kit';
 import { Marked } from 'marked';
 import { markedHighlight } from 'marked-highlight';
 import hljs from 'highlight.js';
-import type { Collection, Post, PostSummary } from '#lib/post.ts';
+import type { Heading, Post, PostSummary } from '#lib/post.ts';
 
 const marked = new Marked(
   markedHighlight({
@@ -16,10 +16,7 @@ const marked = new Marked(
   })
 );
 
-const sources: Record<Collection, Record<string, string>> = {
-  posts: import.meta.glob<string>('../../posts/*.md', { query: '?raw', import: 'default', eager: true }),
-  notes: import.meta.glob<string>('../../notes/*.md', { query: '?raw', import: 'default', eager: true })
-};
+const sources = import.meta.glob<string>('../../posts/*.md', { query: '?raw', import: 'default', eager: true });
 
 function parseFrontmatter(content: string): { meta: Record<string, string>; body: string } {
   const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
@@ -38,17 +35,42 @@ function parseFrontmatter(content: string): { meta: Record<string, string>; body
   return { meta, body: match[2] };
 }
 
-function formatDate(isoDate: string, slug: string): string {
-  const date = new Date(isoDate);
+function parseDate(rawDate: string, slug: string): string {
+  const date = new Date(rawDate);
   if (Number.isNaN(date.getTime())) {
-    throw new Error(`Post "${slug}" has a missing or invalid date: "${isoDate}"`);
+    throw new Error(`Post "${slug}" has a missing or invalid date: "${rawDate}"`);
   }
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    timeZone: 'UTC'
+  return date.toISOString().slice(0, 10);
+}
+
+function slugify(text: string): string {
+  const slug = text
+    .toLowerCase()
+    .replace(/&[^;]+;/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+  return slug || 'section';
+}
+
+function claimUniqueId(base: string, usedIds: Set<string>): string {
+  let id = base;
+  for (let suffix = 2; usedIds.has(id); suffix++) {
+    id = `${base}-${suffix}`;
+  }
+  usedIds.add(id);
+  return id;
+}
+
+function addSectionIds(html: string): { html: string; headings: Heading[] } {
+  const headings: Heading[] = [];
+  const usedIds = new Set<string>();
+  const withIds = html.replace(/<h2>([\s\S]*?)<\/h2>/g, (_, inner: string) => {
+    const text = inner.replace(/<[^>]+>/g, '');
+    const id = claimUniqueId(slugify(text), usedIds);
+    headings.push({ id, html: text });
+    return `<h2 id="${id}">${inner}</h2>`;
   });
+  return { html: withIds, headings };
 }
 
 function processFootnotes(body: string): string {
@@ -79,35 +101,28 @@ function processFootnotes(body: string): string {
 function parsePost(path: string, raw: string): Post {
   const { meta, body } = parseFrontmatter(raw);
   const slug = path.split('/').pop()!.replace(/\.md$/, '');
-  const isoDate = meta.date ?? '';
+  const { html, headings } = addSectionIds(marked.parse(processFootnotes(body), { async: false }));
 
   return {
     title: meta.title || slug,
     description: meta.description,
-    isoDate,
-    date: formatDate(isoDate, slug),
+    date: parseDate(meta.date ?? '', slug),
     slug,
-    content: marked.parse(processFootnotes(body), { async: false })
+    content: html,
+    headings
   };
 }
 
-function parseCollection(files: Record<string, string>): Post[] {
-  return Object.entries(files)
-    .map(([path, raw]) => parsePost(path, raw))
-    .sort((a, b) => b.isoDate.localeCompare(a.isoDate));
+const posts: Post[] = Object.entries(sources)
+  .map(([path, raw]) => parsePost(path, raw))
+  .sort((a, b) => b.date.localeCompare(a.date));
+
+export function listPosts(): PostSummary[] {
+  return posts.map(({ content: _, headings: __, ...summary }) => summary);
 }
 
-const collections: Record<Collection, Post[]> = {
-  posts: parseCollection(sources.posts),
-  notes: parseCollection(sources.notes)
-};
-
-export function listPosts(collection: Collection): PostSummary[] {
-  return collections[collection].map(({ content: _, ...summary }) => summary);
-}
-
-export function loadPost(collection: Collection, slug: string): Post {
-  const post = collections[collection].find(p => p.slug === slug);
+export function loadPost(slug: string): Post {
+  const post = posts.find(p => p.slug === slug);
   if (!post) error(404, 'Post not found');
   return post;
 }

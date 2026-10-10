@@ -13,11 +13,13 @@
 
 <style>
     header {
-        margin-bottom: 3rem;
+        max-width: var(--page-width);
+        margin: 0 auto 3rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--color-border);
     }
 
     .site-title {
-        font-size: 1.15rem;
         font-weight: 600;
         color: var(--color-text);
     }
@@ -27,8 +29,8 @@
     }
 
     .tagline {
-        margin: 0.15rem 0 0;
-        font-size: 0.8rem;
+        margin: 0;
+        font-size: 0.85rem;
         color: var(--color-text-muted);
     }
 </style>

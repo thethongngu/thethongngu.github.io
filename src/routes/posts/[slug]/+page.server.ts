@@ -1,3 +1,3 @@
 import { loadPost } from '#lib/server/posts.ts';
 
-export const load = ({ params }) => ({ post: loadPost('posts', params.slug) });
+export const load = ({ params }) => ({ post: loadPost(params.slug) });
