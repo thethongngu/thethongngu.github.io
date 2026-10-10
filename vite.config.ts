@@ -3,5 +3,5 @@ import { sveltekit } from '@sveltejs/kit/vite'
 import adapter from '@sveltejs/adapter-static'
 
 export default defineConfig({
-  plugins: [sveltekit({ adapter: adapter() })],
+  plugins: [sveltekit({ adapter: adapter(), paths: { relative: false } })],
 })

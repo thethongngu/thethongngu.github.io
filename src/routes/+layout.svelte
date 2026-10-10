@@ -13,6 +13,10 @@
 
 <style>
     header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        column-gap: 0.75rem;
         max-width: var(--page-width);
         margin: 0 auto 3rem;
         padding-bottom: 1rem;
